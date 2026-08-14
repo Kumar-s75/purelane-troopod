@@ -1,0 +1,101 @@
+<section id="PurelaneBundles-{{ section.id }}" class="purelane-section purelane-bundles" data-purelane-scene="3" aria-labelledby="PurelaneBundlesTitle-{{ section.id }}">
+  <div class="purelane-wrap">
+    <div class="purelane-panel purelane-bundles__intro">
+      {% if section.settings.kicker != blank %}<p class="purelane-kicker">{{ section.settings.kicker }}</p>{% endif %}
+      <h2 id="PurelaneBundlesTitle-{{ section.id }}" class="purelane-display">{{ section.settings.heading }}</h2>
+      {% if section.settings.description != blank %}<div class="purelane-lede">{{ section.settings.description }}</div>{% endif %}
+    </div>
+
+    <div class="purelane-bundles__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign bundle = block.settings.bundle_product
+          assign products = block.settings.products
+          if products == blank
+            assign products = collections.all.products
+          endif
+          assign product_count = block.settings.products | size
+          if product_count == 0
+            assign product_count = block.settings.fallback_product_count
+          endif
+          if product_count == 0 and bundle != blank
+            assign product_count = 1
+          endif
+          assign bundle_link = block.settings.link | default: bundle.url | default: routes.all_products_collection_url
+        %}
+        <article class="purelane-bundle{% if block.settings.featured %} purelane-bundle--featured{% endif %}" {{ block.shopify_attributes }}>
+          {% if block.settings.tag != blank %}<span class="purelane-bundle__tag">{{ block.settings.tag }}</span>{% endif %}
+          <div class="purelane-bundle__products" aria-label="Products in {{ block.settings.title | escape }}">
+            {% for product in products limit: product_count %}
+              <div class="purelane-bundle__product">
+                {% if product.featured_image %}
+                  {{ product.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90, 135, 180', alt: product.title }}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'purelane-bundle__placeholder' }}
+                {% endif %}
+              </div>
+            {% endfor %}
+            {% if products == blank %}
+              <div class="purelane-bundle__product">{{ 'product-1' | placeholder_svg_tag: 'purelane-bundle__placeholder' }}</div>
+            {% endif %}
+          </div>
+          <div class="purelane-bundle__body">
+            <h3 class="purelane-visually-hidden">{{ block.settings.title }}</h3>
+            <p class="purelane-bundle__quantity"><strong>{{ product_count }}</strong><span>{{ block.settings.product_label }}</span></p>
+            {% if bundle != blank %}
+              <p class="purelane-bundle__price">
+                <strong>{{ bundle.price | money }}</strong>
+                {% if bundle.compare_at_price > bundle.price %}<s>{{ bundle.compare_at_price | money }}</s>{% endif %}
+              </p>
+              {% if product_count > 0 %}<p class="purelane-bundle__unit">{{ bundle.price | divided_by: product_count | money }} {{ block.settings.per_product_label }}</p>{% endif %}
+            {% elsif block.settings.price_note != blank %}
+              <p class="purelane-bundle__price"><strong>{{ block.settings.price_note }}</strong></p>
+            {% endif %}
+            <ul class="purelane-bundle__benefits" role="list">
+              {% for benefit in (1..3) %}
+                {% capture benefit_id %}benefit_{{ benefit }}{% endcapture %}
+                {% assign benefit_text = block.settings[benefit_id] %}
+                {% if benefit_text != blank %}<li><span aria-hidden="true">✓</span>{{ benefit_text }}</li>{% endif %}
+              {% endfor %}
+            </ul>
+            <a class="purelane-button {% if block.settings.featured %}purelane-button--primary{% else %}purelane-button--secondary{% endif %}" href="{{ bundle_link }}">{{ block.settings.button_label }} <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane bundles",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Build your bundle" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "One box. Every room." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way." }
+  ],
+  "blocks": [
+    {
+      "type": "bundle",
+      "name": "Bundle tier",
+      "settings": [
+        { "type": "text", "id": "tag", "label": "Tag", "default": "Starter" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Starter bundle" },
+        { "type": "product", "id": "bundle_product", "label": "Bundle product", "info": "Select a real bundle product to show its live price." },
+        { "type": "product_list", "id": "products", "label": "Products shown", "limit": 5 },
+        { "type": "range", "id": "fallback_product_count", "label": "Fallback product count", "min": 1, "max": 5, "step": 1, "default": 3, "info": "Used when Products shown is empty." },
+        { "type": "text", "id": "product_label", "label": "Product-count label", "default": "products" },
+        { "type": "text", "id": "per_product_label", "label": "Per-product suffix", "default": "per product" },
+        { "type": "text", "id": "price_note", "label": "Fallback price", "info": "Only shown when no bundle product is selected." },
+        { "type": "text", "id": "benefit_1", "label": "Benefit 1", "default": "Pick your favourite products" },
+        { "type": "text", "id": "benefit_2", "label": "Benefit 2", "default": "Free shipping across India" },
+        { "type": "text", "id": "benefit_3", "label": "Benefit 3" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Build this box" },
+        { "type": "url", "id": "link", "label": "Button link", "info": "Overrides the selected bundle product URL." },
+        { "type": "checkbox", "id": "featured", "label": "Feature this tier", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Purelane bundles", "blocks": [{ "type": "bundle", "settings": { "tag": "Starter", "title": "Starter bundle" } }, { "type": "bundle", "settings": { "tag": "Most popular", "title": "Complete home bundle", "featured": true } }, { "type": "bundle", "settings": { "tag": "Whole home", "title": "Whole home bundle" } }] }]
+}
+{% endschema %}
