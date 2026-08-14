@@ -1,0 +1,60 @@
+<article class="purelane-product-card">
+  <a href="{{ product.url }}" class="purelane-product-card__link">
+    <div class="purelane-product-card__image">
+      {% if product.featured_image %}
+        {{ product.featured_image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'lazy',
+            widths: '360, 540, 720, 900',
+            sizes: '(min-width: 990px) 25vw, 50vw',
+            alt: product.featured_image.alt | default: product.title
+        }}
+      {% else %}
+        <div class="purelane-product-card__placeholder">
+          {{ 'product-1' | placeholder_svg_tag }}
+        </div>
+      {% endif %}
+
+      {% if product.compare_at_price > product.price %}
+        <span class="purelane-product-card__badge">Sale</span>
+      {% elsif product.available == false %}
+        <span class="purelane-product-card__badge">Sold out</span>
+      {% endif %}
+    </div>
+
+    <div class="purelane-product-card__content">
+      <h3 class="purelane-product-card__title">
+        {{ product.title }}
+      </h3>
+
+      <div class="purelane-product-card__rating">
+        ★★★★★
+      </div>
+
+      <div class="purelane-product-card__price">
+        {% if product.compare_at_price > product.price %}
+          <s>{{ product.compare_at_price | money }}</s>
+        {% endif %}
+
+        <strong>{{ product.price | money }}</strong>
+
+        {% if product.compare_at_price > product.price %}
+          <span>
+            {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% off
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+
+  {% if product.available %}
+    <form method="post" action="{{ routes.cart_add_url }}" class="purelane-product-card__form">
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="purelane-product-card__button">
+        Add to cart
+      </button>
+    </form>
+  {% endif %}
+</article>
