@@ -28,9 +28,13 @@
         {{ product.title }}
       </h3>
 
-      <div class="purelane-product-card__rating">
-        ★★★★★
-      </div>
+      {% assign product_rating = product.metafields.reviews.rating.value %}
+      {% assign product_rating_count = product.metafields.reviews.rating_count.value %}
+      <p class="purelane-product-card__rating"{% if product_rating == blank %} aria-hidden="true"{% else %} aria-label="Rated {{ product_rating.rating }} out of {{ product_rating.scale_max }}"{% endif %}>
+        {% if product_rating != blank %}
+          ★ {{ product_rating.rating }}{% if product_rating_count != blank %} · {{ product_rating_count }} reviews{% endif %}
+        {% endif %}
+      </p>
 
       <div class="purelane-product-card__price">
         {% if product.compare_at_price > product.price %}
@@ -49,12 +53,19 @@
   </a>
 
   {% if product.available %}
-    <form method="post" action="{{ routes.cart_add_url }}" class="purelane-product-card__form">
-      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-      <input type="hidden" name="quantity" value="1">
-      <button type="submit" class="purelane-product-card__button">
-        Add to cart
-      </button>
-    </form>
+    <product-form class="purelane-product-card__form" data-hide-errors="true">
+      <form method="post" action="{{ routes.cart_add_url }}" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="purelane-product-card__button">
+          <span>Add to cart</span>
+          {% render 'loading-spinner' %}
+        </button>
+      </form>
+    </product-form>
+  {% else %}
+    <div class="purelane-product-card__form">
+      <button type="button" class="purelane-product-card__button" disabled>Sold out</button>
+    </div>
   {% endif %}
 </article>
