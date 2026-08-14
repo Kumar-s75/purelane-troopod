@@ -278,7 +278,13 @@
       }
     {% endstyle %}
 
-   {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {%- if template.name == 'index' -%}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+      <script src="{{ 'purelane-scenes.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
    {{ 'purelane.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
@@ -322,7 +328,17 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient template-{{ template.name | handleize }}{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+    {%- if template.name == 'index' -%}
+      <div class="purelane-scenes" data-purelane-scenes="1" data-depth="1" aria-hidden="true">
+        <div class="purelane-scenes__scene purelane-scenes__scene--1 is-active"></div>
+        <div class="purelane-scenes__scene purelane-scenes__scene--2"></div>
+        <div class="purelane-scenes__scene purelane-scenes__scene--3"></div>
+        <div class="purelane-scenes__scene purelane-scenes__scene--4"></div>
+        <div class="purelane-scenes__water"></div>
+        <div class="purelane-scenes__vignette"></div>
+      </div>
+    {%- endif -%}
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
