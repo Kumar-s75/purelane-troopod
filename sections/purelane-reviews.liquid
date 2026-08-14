@@ -1,0 +1,45 @@
+<section id="PurelaneReviews-{{ section.id }}" class="purelane-section purelane-reviews" data-purelane-scene="1" aria-labelledby="PurelaneReviewsTitle-{{ section.id }}">
+  <div class="purelane-wrap">
+    <div class="purelane-reviews__head">
+      <h2 id="PurelaneReviewsTitle-{{ section.id }}" class="purelane-visually-hidden">{{ section.settings.kicker }}</h2>
+      <p class="purelane-kicker">{{ section.settings.kicker }}</p>
+      {% if section.settings.rating_summary != blank %}<p class="purelane-reviews__summary"><span aria-hidden="true">★★★★★</span>{{ section.settings.rating_summary }}</p>{% endif %}
+      {% if section.settings.homes_summary != blank %}<p class="purelane-reviews__summary">{{ section.settings.homes_summary }}</p>{% endif %}
+    </div>
+  </div>
+  {% if section.blocks.size > 0 %}
+    <div class="purelane-reviews__rail" tabindex="0" role="region" aria-label="Customer reviews. Hover or focus to pause the moving list.">
+      <div class="purelane-reviews__track">
+        {% for repeat in (1..2) %}
+          {% for block in section.blocks %}
+            <article class="purelane-review"{% if repeat > 1 %} aria-hidden="true"{% else %} {{ block.shopify_attributes }}{% endif %}>
+              <p class="purelane-review__stars" aria-label="{{ block.settings.rating }} out of 5 stars">{% for star in (1..5) %}{% if star <= block.settings.rating %}★{% else %}☆{% endif %}{% endfor %}</p>
+              <h3>{{ block.settings.title }}</h3>
+              <p>{{ block.settings.quote }}</p>
+              <footer><span aria-hidden="true">✓</span><strong>{{ block.settings.customer }}</strong>{% if block.settings.product_name != blank %}<span>· {{ block.settings.product_name }}</span>{% endif %}</footer>
+            </article>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Purelane reviews rail",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "That's what they said" },
+    { "type": "text", "id": "rating_summary", "label": "Rating summary", "default": "4.8 from 8,000+ reviews" },
+    { "type": "text", "id": "homes_summary", "label": "Homes summary", "default": "Loved by 12 lakh+ homes" }
+  ],
+  "blocks": [{ "type": "review", "name": "Review", "settings": [
+    { "type": "range", "id": "rating", "label": "Rating", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "text", "id": "title", "label": "Title", "default": "Works like a charm" },
+    { "type": "textarea", "id": "quote", "label": "Review", "default": "Finally an eco option that cleans as well as the chemical detergent I used for years." },
+    { "type": "text", "id": "customer", "label": "Customer name", "default": "Verified buyer" },
+    { "type": "text", "id": "product_name", "label": "Product association" }
+  ] }],
+  "presets": [{ "name": "Purelane reviews rail", "blocks": [{ "type": "review", "settings": { "title": "Works like a charm", "customer": "Anita", "product_name": "Laundry detergent" } }, { "type": "review", "settings": { "title": "Best dishwash ever", "customer": "Priya", "product_name": "Dishwash gel" } }, { "type": "review", "settings": { "title": "Great product, great packaging", "customer": "Sunita", "product_name": "Liquid handwash" } }, { "type": "review", "settings": { "title": "Dog friendly", "customer": "Rohit S.", "product_name": "Floor cleaner" } }] }]
+}
+{% endschema %}
