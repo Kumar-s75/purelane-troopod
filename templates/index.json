@@ -1,84 +1,68 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
+
+
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "button"
-      ],
+    "purelane_hero": {
+      "type": "purelane-hero",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "eyebrow": "Plant-powered homecare",
+        "heading_line_1": "Clean",
+        "heading_line_2": "That",
+        "heading_line_3": "Lasts",
+        "description": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it.",
+        "promise_1": "Plant\npowered",
+        "promise_2": "Safe for\nkids & pets",
+        "promise_3": "Zero harsh\nchemicals",
+        "primary_label": "Shop now",
+        "primary_link": "#PurelaneProducts-purelane_products",
+        "secondary_label": "How it works",
+        "secondary_link": "#PurelaneBundles-purelane_bundles",
+        "hero_collection": "all",
+        "brand_name": "Purelane",
+        "brand_tagline": "Clean, simply",
+        "ticker_first": "Free shipping on every bundle across India",
+        "ticker_second": "100% plant-based and non-toxic",
+        "ticker_third": "Loved by 30,000+ happy homes",
+        "ticker_fourth": "Buy 3 at flat ₹499"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
-      }
+    "purelane_reviews": {
+      "type": "purelane-reviews",
+      "blocks": {
+        "review_1": { "type": "review", "settings": { "title": "Works like a charm", "quote": "Finally an eco option that cleans as well as the chemical detergent I used for years, and it smells better.", "customer": "Anita", "product_name": "Laundry detergent" } },
+        "review_2": { "type": "review", "settings": { "title": "Best dishwash ever", "quote": "Our old dishwash left my help with dry, cracked skin. That stopped completely after we switched.", "customer": "Priya", "product_name": "Dishwash gel" } },
+        "review_3": { "type": "review", "settings": { "title": "Great product, great packaging", "quote": "Very soft on hands with a lovely fragrance, and it feels good to be using far less plastic.", "customer": "Sunita", "product_name": "Liquid handwash" } },
+        "review_4": { "type": "review", "settings": { "title": "Dog friendly", "quote": "We switched because chemical floor cleaners were setting off my dog's allergies. No reactions since.", "customer": "Rohit S.", "product_name": "Floor cleaner" } }
+      },
+      "block_order": ["review_1", "review_2", "review_3", "review_4"],
+      "settings": { "kicker": "That's what they said", "rating_summary": "4.8 from 8,000+ reviews", "homes_summary": "Loved by 12 lakh+ homes" }
+    },
+    "purelane_combos": {
+      "type": "purelane-combos",
+      "blocks": {
+        "combo_1": { "type": "combo", "settings": { "title": "Kitchen essentials", "description": "Everything you need for a sparkling kitchen, no need to pick separately.", "fallback_product_count": 3, "price": "₹499", "compare_price": "₹897", "savings": "Save ₹398", "badge": "You save ₹398", "flag": "Most popular" } },
+        "combo_2": { "type": "combo", "settings": { "title": "Laundry care bundle", "description": "A complete laundry care set for a fresher wash.", "fallback_product_count": 3, "price": "₹499", "compare_price": "₹947", "savings": "Save ₹448", "badge": "You save ₹448" } },
+        "combo_3": { "type": "combo", "settings": { "title": "Complete home bundle", "description": "Our biggest saving box for the whole home.", "fallback_product_count": 5, "price": "₹799", "compare_price": "₹1,495", "savings": "Save ₹696", "badge": "Biggest saving", "featured": true, "flag": "Best value" } },
+        "combo_4": { "type": "combo", "settings": { "title": "Bathroom deep clean", "description": "A complete bathroom refresh for hard water stains and soap scum.", "fallback_product_count": 3, "price": "₹499", "compare_price": "₹897", "savings": "Save ₹398", "badge": "You save ₹398" } },
+        "combo_5": { "type": "combo", "settings": { "title": "Hard water solution kit", "description": "A quick, focused fix for hard water stains across the home.", "fallback_product_count": 2, "price": "₹349", "compare_price": "₹598", "savings": "Save ₹249", "badge": "You save ₹249" } }
+      },
+      "block_order": ["combo_1", "combo_2", "combo_3", "combo_4", "combo_5"],
+      "settings": {}
+    },
+    "purelane_bundles": {
+      "type": "purelane-bundles",
+      "blocks": {
+        "starter": { "type": "bundle", "settings": { "tag": "Starter", "title": "Starter bundle", "fallback_product_count": 2, "price_note": "₹349", "benefit_1": "Pick any two products", "benefit_2": "Free shipping across India" } },
+        "popular": { "type": "bundle", "settings": { "tag": "Most popular", "title": "Complete home bundle", "fallback_product_count": 3, "price_note": "₹499", "benefit_1": "Pick any three products", "benefit_2": "Covers kitchen and laundry", "benefit_3": "Free shipping across India", "featured": true } },
+        "whole_home": { "type": "bundle", "settings": { "tag": "Whole home", "title": "Whole home bundle", "fallback_product_count": 5, "price_note": "₹799", "benefit_1": "Pick any five products", "benefit_2": "Every room in one order", "benefit_3": "Free shipping across India" } }
+      },
+      "block_order": ["starter", "popular", "whole_home"],
+      "settings": { "kicker": "Build your bundle", "heading": "One box. Every room.", "description": "Mix and match across kitchen, laundry, home and skin. One flat price, no code needed, free shipping either way." }
+    },
+    "purelane_products": {
+      "type": "purelane-products",
+      "settings": { "kicker": "Bestsellers", "heading": "Loved by 30,000 homes", "collection": "all", "products_to_show": 4 }
     }
   },
-  "order": [
-    "image_banner",
-    "featured_collection"
-  ]
+  "order": ["purelane_hero", "purelane_reviews", "purelane_combos", "purelane_bundles", "purelane_products"]
 }
