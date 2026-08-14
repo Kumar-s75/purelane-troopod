@@ -1,0 +1,468 @@
+<section class="purelane-combos">
+  <div class="purelane-combos__container">
+
+    <div class="purelane-combos__header">
+      <span class="purelane-combos__kicker">
+        Pre-built to save you money
+      </span>
+
+      <h2>Best selling combos</h2>
+
+      <div class="purelane-combos__rule">
+        <span></span>
+        <span>✦</span>
+        <span></span>
+      </div>
+
+      <p>
+        Swipe through the boxes people order most. Each one is already
+        priced below buying the same products on their own.
+      </p>
+    </div>
+
+    <div class="purelane-combos__grid">
+
+      {% for block in section.blocks %}
+        <article class="purelane-combo {% if block.settings.featured %}purelane-combo--featured{% endif %}"
+          {{ block.shopify_attributes }}>
+
+          <div class="purelane-combo__top">
+
+            {% if block.settings.badge != blank %}
+              <span class="purelane-combo__badge">
+                {{ block.settings.badge }}
+              </span>
+            {% endif %}
+
+            {% if block.settings.featured %}
+              <span class="purelane-combo__flag">
+                Best value
+              </span>
+            {% endif %}
+
+            <div class="purelane-combo__products">
+
+              {% assign combo_products = block.settings.products %}
+
+              {% for product in combo_products %}
+                <div class="purelane-combo__product">
+
+                  {% if product.featured_image %}
+                    {{
+                      product.featured_image
+                      | image_url: width: 300
+                      | image_tag:
+                        loading: 'lazy',
+                        alt: product.title
+                    }}
+                  {% endif %}
+
+                  <span>{{ product.title | truncate: 24 }}</span>
+
+                </div>
+
+                {% unless forloop.last %}
+                  <strong>+</strong>
+                {% endunless %}
+
+              {% endfor %}
+
+            </div>
+          </div>
+
+          <div class="purelane-combo__body">
+
+            <h3>{{ block.settings.title }}</h3>
+
+            <span class="purelane-combo__count">
+              {{ block.settings.products.size }} products
+            </span>
+
+            <p>
+              {{ block.settings.description }}
+            </p>
+
+            <div class="purelane-combo__price">
+              <strong>{{ block.settings.price }}</strong>
+
+              {% if block.settings.compare_price != blank %}
+                <s>{{ block.settings.compare_price }}</s>
+              {% endif %}
+
+              {% if block.settings.savings != blank %}
+                <em>{{ block.settings.savings }}</em>
+              {% endif %}
+            </div>
+
+            <small>Inclusive of all taxes · COD available</small>
+
+            <a href="{{ block.settings.link | default: routes.all_products_collection_url }}"
+              class="purelane-combo__button">
+              Shop bundle →
+            </a>
+
+          </div>
+
+        </article>
+      {% endfor %}
+
+    </div>
+
+    <p class="purelane-combos__swipe">
+      ← Swipe for more combos →
+    </p>
+
+  </div>
+</section>
+
+<style>
+.purelane-combos {
+  padding: 70px 20px;
+  background: #f4f0fb;
+}
+
+.purelane-combos__container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.purelane-combos__header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.purelane-combos__kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #6b55b8;
+}
+
+.purelane-combos__header h2 {
+  margin: 10px 0;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: .95;
+  color: #4b3a8f;
+}
+
+.purelane-combos__header p {
+  max-width: 650px;
+  margin: 15px auto 0;
+  color: #554d66;
+}
+
+.purelane-combos__rule {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  color: #b8701c;
+}
+
+.purelane-combos__rule span:first-child,
+.purelane-combos__rule span:last-child {
+  width: 70px;
+  height: 1px;
+  background: #b8701c;
+}
+
+.purelane-combos__grid {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 10px 4px 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.purelane-combo {
+  flex: 0 0 310px;
+  scroll-snap-align: start;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(75,58,143,.14);
+  box-shadow: 0 18px 45px rgba(58,44,112,.12);
+}
+
+.purelane-combo--featured {
+  border-color: #b8701c;
+  box-shadow:
+    0 20px 50px rgba(58,44,112,.16),
+    0 0 0 1px rgba(184,112,28,.2);
+}
+
+.purelane-combo__top {
+  padding: 16px;
+  background: linear-gradient(160deg,#fff,#eee8f8);
+  position: relative;
+}
+
+.purelane-combo__badge,
+.purelane-combo__flag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.purelane-combo__badge {
+  color: #4f7d10;
+  background: #f4ecd9;
+}
+
+.purelane-combo__flag {
+  float: right;
+  background: #00706a;
+  color: white;
+}
+
+.purelane-combo__products {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  min-height: 150px;
+  padding-top: 15px;
+}
+
+.purelane-combo__product {
+  flex: 1;
+  text-align: center;
+  font-size: 9px;
+  color: #554d66;
+}
+
+.purelane-combo__product img {
+  width: 100%;
+  height: 105px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
+
+.purelane-combo__products > strong {
+  color: #b8701c;
+  padding-bottom: 45px;
+}
+
+.purelane-combo__body {
+  padding: 20px;
+}
+
+.purelane-combo__body h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #241a3d;
+}
+
+.purelane-combo__count {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #81798d;
+}
+
+.purelane-combo__body p {
+  min-height: 75px;
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #554d66;
+}
+
+.purelane-combo__price {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.purelane-combo__price strong {
+  font-size: 26px;
+  color: #241a3d;
+}
+
+.purelane-combo__price s {
+  color: #888;
+  font-size: 13px;
+}
+
+.purelane-combo__price em {
+  font-style: normal;
+  font-size: 9px;
+  font-weight: 800;
+  color: #4f7d10;
+}
+
+.purelane-combo__body small {
+  display: block;
+  margin: 7px 0 15px;
+  color: #81798d;
+}
+
+.purelane-combo__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  border-radius: 999px;
+  background: #00706a;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.purelane-combos__swipe {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #81798d;
+}
+
+@media (min-width: 1000px) {
+  .purelane-combos__grid {
+    overflow-x: visible;
+  }
+}
+
+@media (max-width: 600px) {
+  .purelane-combos {
+    padding: 50px 14px;
+  }
+
+  .purelane-combo {
+    flex-basis: 280px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Purelane combos",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "combo",
+      "name": "Combo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Kitchen essentials"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Everything you need for a sparkling clean home."
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "limit": 5
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Bundle price",
+          "default": "₹499"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare price",
+          "default": "₹897"
+        },
+        {
+          "type": "text",
+          "id": "savings",
+          "label": "Savings",
+          "default": "Save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge",
+          "default": "You save"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Button link"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Featured combo",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane combos",
+      "blocks": [
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Kitchen essentials",
+            "description": "Kitchen Cleaner, Dishwash Gel & Tap Cleaner.",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "savings": "Save ₹398",
+            "badge": "Most popular"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Laundry care bundle",
+            "description": "A complete laundry care set for a fresher wash.",
+            "price": "₹499",
+            "compare_price": "₹947",
+            "savings": "Save ₹448",
+            "badge": "You save"
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Complete home bundle",
+            "description": "Our biggest saving box for the whole home.",
+            "price": "₹799",
+            "compare_price": "₹1,495",
+            "savings": "Save ₹696",
+            "badge": "Biggest saving",
+            "featured": true
+          }
+        },
+        {
+          "type": "combo",
+          "settings": {
+            "title": "Bathroom deep clean",
+            "description": "A complete bathroom refresh in one box.",
+            "price": "₹499",
+            "compare_price": "₹897",
+            "savings": "Save ₹398",
+            "badge": "You save"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
