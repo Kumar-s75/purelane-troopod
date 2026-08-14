@@ -1,0 +1,277 @@
+<section
+  id="PurelaneHero-{{ section.id }}"
+  class="purelane-hero"
+>
+  <div class="purelane-hero__grid">
+
+    <div class="purelane-hero__badges" aria-label="Product promises">
+      <div class="purelane-hero__badge">
+        <span class="purelane-hero__icon" aria-hidden="true">✦</span>
+        <span>Plant<br>powered</span>
+      </div>
+
+      <div class="purelane-hero__badge">
+        <span class="purelane-hero__icon" aria-hidden="true">✓</span>
+        <span>Safe for<br>kids & pets</span>
+      </div>
+
+      <div class="purelane-hero__badge">
+        <span class="purelane-hero__icon" aria-hidden="true">○</span>
+        <span>Zero harsh<br>chemicals</span>
+      </div>
+    </div>
+
+    <div class="purelane-hero__copy">
+      {% if section.settings.eyebrow != blank %}
+        <p class="purelane-hero__eyebrow">
+          {{ section.settings.eyebrow }}
+        </p>
+      {% endif %}
+
+      <h1>
+        {{ section.settings.heading_line_1 }}<br>
+        {{ section.settings.heading_line_2 }}<br>
+        <span>{{ section.settings.heading_line_3 }}</span>
+      </h1>
+
+      <div class="purelane-hero__rule" aria-hidden="true">
+        <i></i>
+        <span>✦</span>
+        <i></i>
+      </div>
+
+      <p class="purelane-hero__lede">
+        {{ section.settings.description }}
+      </p>
+
+      <div class="purelane-hero__actions">
+        <a
+          href="{{ section.settings.primary_link }}"
+          class="purelane-hero__button purelane-hero__button--primary"
+        >
+          {{ section.settings.primary_label }}
+          <span aria-hidden="true">→</span>
+        </a>
+
+        <a
+          href="{{ section.settings.secondary_link }}"
+          class="purelane-hero__button purelane-hero__button--secondary"
+        >
+          {{ section.settings.secondary_label }}
+        </a>
+      </div>
+
+      <div class="purelane-hero__mobile-badges">
+        <span>✦ Plant powered</span>
+        <span>✓ Kids & pet safe</span>
+        <span>○ Zero harsh chem</span>
+      </div>
+    </div>
+
+    <div class="purelane-hero__products">
+
+      {% assign hero_products = section.settings.hero_collection.products %}
+
+      {% for product in hero_products limit: 3 %}
+        <article
+          class="purelane-hero__slide{% if forloop.first %} is-active{% endif %}"
+          data-hero-slide="{{ forloop.index0 }}"
+        >
+          <div class="purelane-hero__product-image">
+            {% if product.featured_image %}
+              {{
+                product.featured_image
+                | image_url: width: 900
+                | image_tag:
+                  loading: 'eager',
+                  widths: '400, 600, 800, 900',
+                  sizes: '(min-width: 990px) 45vw, 90vw',
+                  alt: product.featured_image.alt | default: product.title
+              }}
+            {% else %}
+              <div class="purelane-hero__placeholder">
+                PURELANE
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="purelane-hero__price-card">
+            <span class="purelane-hero__price-label">
+              {% if forloop.index == 1 %}
+                Single bottle
+              {% elsif forloop.index == 2 %}
+                Any 2 products
+              {% else %}
+                Any 3 products
+              {% endif %}
+            </span>
+
+            <div class="purelane-hero__prices">
+              <strong>
+                {{ product.price | money }}
+              </strong>
+
+              {% if product.compare_at_price > product.price %}
+                <s>
+                  {{ product.compare_at_price | money }}
+                </s>
+              {% endif %}
+            </div>
+
+            {% if product.compare_at_price > product.price %}
+              <span class="purelane-hero__saving">
+                {{ product.compare_at_price
+                  | minus: product.price
+                  | times: 100.0
+                  | divided_by: product.compare_at_price
+                  | round
+                }}% off
+              </span>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+
+      {% if hero_products.size > 0 %}
+        <div class="purelane-hero__dots" aria-label="Hero product slides">
+          {% for product in hero_products limit: 3 %}
+            <button
+              type="button"
+              class="{% if forloop.first %}is-active{% endif %}"
+              data-hero-dot="{{ forloop.index0 }}"
+              aria-label="Show product {{ forloop.index }}"
+              aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+            ></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.getElementById('PurelaneHero-{{ section.id }}');
+
+    if (!root || root.dataset.initialized === 'true') return;
+
+    root.dataset.initialized = 'true';
+
+    const slides = [...root.querySelectorAll('[data-hero-slide]')];
+    const dots = [...root.querySelectorAll('[data-hero-dot]')];
+
+    if (slides.length < 2) return;
+
+    let current = 0;
+    let timer;
+
+    const showSlide = (index) => {
+      current = index;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('is-active', i === index);
+      });
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+        dot.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+      });
+    };
+
+    const start = () => {
+      clearInterval(timer);
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      timer = setInterval(() => {
+        showSlide((current + 1) % slides.length);
+      }, 4500);
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showSlide(index);
+        start();
+      });
+    });
+
+    root.addEventListener('mouseenter', () => clearInterval(timer));
+    root.addEventListener('mouseleave', start);
+
+    start();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Purelane hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Plant-powered homecare"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "Clean"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "That"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_3",
+      "label": "Heading line 3",
+      "default": "Lasts"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button",
+      "default": "How it works"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "collection",
+      "id": "hero_collection",
+      "label": "Hero products"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane hero"
+    }
+  ]
+}
+{% endschema %}

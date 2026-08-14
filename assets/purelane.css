@@ -190,3 +190,395 @@
     font-size: 14px;
   }
 }
+/* =========================================================
+   PURELANE HERO
+   ========================================================= */
+
+.purelane-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(129, 104, 201, .28), transparent 32%),
+    linear-gradient(135deg, #30244e 0%, #4b3a8f 48%, #6f5b8f 100%);
+  color: #ece6f7;
+}
+
+.purelane-hero__grid {
+  width: min(1500px, 100%);
+  min-height: min(820px, calc(100vh - 80px));
+  margin: 0 auto;
+  padding: clamp(70px, 8vw, 110px) clamp(20px, 5vw, 70px);
+  display: grid;
+  grid-template-columns: minmax(90px, .55fr) minmax(320px, 1fr) minmax(400px, 1.15fr);
+  align-items: center;
+  gap: clamp(20px, 4vw, 70px);
+}
+
+.purelane-hero__badges {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-self: start;
+  margin-top: 10px;
+}
+
+.purelane-hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 12px;
+  border: 1px solid rgba(236, 230, 247, .18);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, .06);
+  backdrop-filter: blur(14px);
+  font-size: 11px;
+  line-height: 1.15;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.purelane-hero__icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(236, 230, 247, .35);
+  border-radius: 50%;
+  font-size: 17px;
+}
+
+.purelane-hero__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.purelane-hero__eyebrow {
+  margin: 0 0 18px;
+  color: #d8cfec;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.purelane-hero__copy h1 {
+  margin: 0;
+  color: #ece6f7;
+  font-family: Outfit, system-ui, sans-serif;
+  font-size: clamp(58px, 8.6vw, 112px);
+  font-weight: 800;
+  line-height: .82;
+  letter-spacing: -.018em;
+  text-transform: uppercase;
+}
+
+.purelane-hero__copy h1 span {
+  color: #b8df65;
+}
+
+.purelane-hero__rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(280px, 100%);
+  margin: 28px 0 20px;
+  color: #b8df65;
+}
+
+.purelane-hero__rule i {
+  height: 1px;
+  flex: 1;
+  background: currentColor;
+  opacity: .65;
+}
+
+.purelane-hero__rule span {
+  font-size: 18px;
+}
+
+.purelane-hero__lede {
+  max-width: 43ch;
+  margin: 0;
+  color: #d8cfec;
+  font-size: clamp(15px, 1.35vw, 17.5px);
+  line-height: 1.6;
+}
+
+.purelane-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.purelane-hero__button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform .2s ease, background .2s ease;
+}
+
+.purelane-hero__button:hover {
+  transform: translateY(-2px);
+}
+
+.purelane-hero__button--primary {
+  background: #b8df65;
+  color: #30244e;
+}
+
+.purelane-hero__button--secondary {
+  border: 1px solid rgba(236, 230, 247, .28);
+  background: rgba(255, 255, 255, .06);
+  color: #ece6f7;
+}
+
+.purelane-hero__mobile-badges {
+  display: none;
+}
+
+.purelane-hero__products {
+  position: relative;
+  min-height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.purelane-hero__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 70px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(.98);
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+}
+
+.purelane-hero__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.purelane-hero__product-image {
+  width: min(72%, 500px);
+  height: min(70vh, 600px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.purelane-hero__product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 28px 30px rgba(0, 0, 0, .28));
+}
+
+.purelane-hero__placeholder {
+  width: 65%;
+  height: 70%;
+  display: grid;
+  place-items: center;
+  border-radius: 30px;
+  background: rgba(255,255,255,.08);
+  color: #d8cfec;
+  letter-spacing: .15em;
+}
+
+.purelane-hero__price-card {
+  position: absolute;
+  right: 4%;
+  bottom: 60px;
+  min-width: 175px;
+  padding: 16px 18px;
+  border: 1px solid rgba(236, 230, 247, .2);
+  border-radius: 20px;
+  background: rgba(255,255,255,.09);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 45px rgba(0,0,0,.2);
+}
+
+.purelane-hero__price-label {
+  display: block;
+  margin-bottom: 7px;
+  color: #d8cfec;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.purelane-hero__prices {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.purelane-hero__prices strong {
+  font-size: 22px;
+}
+
+.purelane-hero__prices s {
+  opacity: .55;
+  font-size: 13px;
+}
+
+.purelane-hero__saving {
+  display: inline-block;
+  margin-top: 5px;
+  color: #b8df65;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.purelane-hero__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 9px;
+}
+
+.purelane-hero__dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 1px solid rgba(236,230,247,.5);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.purelane-hero__dots button.is-active {
+  background: #b8df65;
+  border-color: #b8df65;
+}
+
+.purelane-hero__button:focus-visible,
+.purelane-hero__dots button:focus-visible {
+  outline: 3px solid #b8df65;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .purelane-hero__slide,
+  .purelane-hero__button {
+    transition: none;
+  }
+}
+
+@media screen and (max-width: 989px) {
+  .purelane-hero__grid {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    gap: 30px;
+  }
+
+  .purelane-hero__badges {
+    display: none;
+  }
+
+  .purelane-hero__copy {
+    text-align: center;
+  }
+
+  .purelane-hero__copy h1 {
+    font-size: clamp(58px, 15vw, 100px);
+  }
+
+  .purelane-hero__rule {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .purelane-hero__lede {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .purelane-hero__actions {
+    justify-content: center;
+  }
+
+  .purelane-hero__mobile-badges {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  .purelane-hero__mobile-badges span {
+    padding: 8px 10px;
+    border: 1px solid rgba(236,230,247,.18);
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    color: #d8cfec;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+
+  .purelane-hero__products {
+    min-height: 500px;
+  }
+
+  .purelane-hero__product-image {
+    width: min(65%, 380px);
+    height: 430px;
+  }
+
+  .purelane-hero__price-card {
+    right: 7%;
+    bottom: 55px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .purelane-hero__grid {
+    padding: 48px 16px 28px;
+  }
+
+  .purelane-hero__products {
+    min-height: 430px;
+  }
+
+  .purelane-hero__product-image {
+    width: 72%;
+    height: 360px;
+  }
+
+  .purelane-hero__price-card {
+    right: 0;
+    bottom: 45px;
+    min-width: 145px;
+    padding: 12px;
+  }
+
+  .purelane-hero__prices strong {
+    font-size: 18px;
+  }
+}
